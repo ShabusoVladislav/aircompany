@@ -84,7 +84,7 @@ describe('Airport test.', () => {
         const airport = new Airport(planes);
         const filteredPlanes = airport.getFighterMilitaryPlanes();
 
-        expect(filteredPlanes).to.have.members(militaryFighterPlanes);
+        expect(filteredPlanes).to.have.members([...militaryFighterPlanes, planeWithMaxSpeed]);
     });
 
     it('Should check that at least one bomber is present in military planes.', () => {
@@ -102,7 +102,7 @@ describe('Airport test.', () => {
 
     it('Should have plane with max speed', () => {
         const airport = new Airport(planes);
-        const expectedPlaneWithMaxSpeed = airport.getPlanes();
+        const expectedPlaneWithMaxSpeed = airport.getPlaneWithMaxSpeed();
 
         assert.deepEqual(expectedPlaneWithMaxSpeed, planeWithMaxSpeed);
     });
