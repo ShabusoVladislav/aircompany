@@ -43,6 +43,9 @@ describe('Airport test.', () => {
     const experimentalTopSecretPlanes = [new ExperimentalPlane("Ryan X-13 Vertijet", 560, 307, 500, EXPERIMENTAL_TYPES.VTOL, CLASSIFICATION_LEVELS.TOP_SECRET)];
     
     const planeWithMaxPassengerCapacity = new PassengerPlane('Boeing-747', 980, 16100, 70500, 242);
+
+    const planeWithMaxSpeed = new MilitaryPlane('F-30', 1600, 13500, 11300, MILITARY_TYPES.FIGHTER);
+
     
     const planes = [
         ...PassengerPlanes,
@@ -51,7 +54,8 @@ describe('Airport test.', () => {
         ...militaryTransportPlanes,
         ...experimentalSecretPlanes,
         ...experimentalTopSecretPlanes,
-        planeWithMaxPassengerCapacity
+        planeWithMaxPassengerCapacity,
+        planeWithMaxSpeed
     ];
 
     const dataForSorts = [
@@ -83,11 +87,24 @@ describe('Airport test.', () => {
         expect(filteredPlanes).to.have.members(militaryFighterPlanes);
     });
 
+    it('Should check that at least one bomber is present in military planes.', () => {
+        const airport = new Airport(planes);
+
+        expect(airport.getBomberMilitaryPlanes()).to.have.members(militaryBomberPlanes);
+    });
+
     it('Should have passenger plane with max capacity', () => {
         const airport = new Airport(planes);
         const expectedPlaneWithMaxPassengersCapacity = airport.getPassengerPlaneWithMaxPassengersCapacity();
 
         assert.deepEqual(expectedPlaneWithMaxPassengersCapacity, planeWithMaxPassengerCapacity);
+    });
+
+    it('Should have plane with max speed', () => {
+        const airport = new Airport(planes);
+        const expectedPlaneWithMaxSpeed = airport.getPlanes();
+
+        assert.deepEqual(expectedPlaneWithMaxSpeed, planeWithMaxSpeed);
     });
 
     dataForSorts.forEach(({methodName, sortField}) => {
@@ -96,12 +113,6 @@ describe('Airport test.', () => {
 
           expect(airport[methodName]().planes).to.be.ascendingBy(sortField);
         })
-    });
-
-    it('Should check that at least one bomber is present in military planes.', () => {
-        const airport = new Airport(planes);
-
-        expect(airport.getBomberMilitaryPlanes()).to.have.members(militaryBomberPlanes);
     });
 
     it('should check that experimental planes has classification level higher than unclassified', () => {

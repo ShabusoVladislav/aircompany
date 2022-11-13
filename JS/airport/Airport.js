@@ -29,6 +29,12 @@ class Airport {
         );
     }
 
+    getPlaneWithMaxSpeed() {
+        return this.getPlanes().reduce((prev, cur) => 
+            prev.b >= cur.b ? prev : cur
+        );
+    }
+
     sortByMaxFlightDistance() {
         this.getPlanes().sort((a, b) => a.maxFlightDistance - b.maxFlightDistance);
 
