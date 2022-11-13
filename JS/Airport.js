@@ -1,6 +1,6 @@
 const PassengerPlane = require('./Planes/PassengerPlane');
 const MilitaryPlane = require('./Planes/MilitaryPlane');
-const ExperimentalPlane = require('./Planes/ExperimentalPlane');
+const ExperimentalPlane = require('./Planes/experimentalPlane');
 
 const MILITARY_TYPES = require('./models/militaryTypes');
 

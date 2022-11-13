@@ -5,7 +5,7 @@ const { assert, expect } = chai;
 
 const MilitaryPlane = require('../Planes/MilitaryPlane');
 const PassengerPlane = require('../Planes/PassengerPlane');
-const ExperimentalPlane = require('../Planes/ExperimentalPlane');
+const ExperimentalPlane = require('../Planes/experimentalPlane');
 
 const Airport = require('../Airport');
 
