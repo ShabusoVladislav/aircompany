@@ -100,13 +100,13 @@ describe('Airport test.', () => {
 
     it('Should check that at least one bomber is present in military planes.', () => {
         const airport = new Airport(planes);
-       
+
         expect(airport.getBomberMilitaryPlanes()).to.have.members(militaryBomberPlanes);
     });
 
     it('should check that experimental planes has classification level higher than unclassified', () => {
         const airport = new Airport(planes);
-        
+
         expect(airport.getExperimentalPlanes()).to.have.members([...experimentalSecretPlanes, ...experimentalTopSecretPlanes]);
     });
 });
