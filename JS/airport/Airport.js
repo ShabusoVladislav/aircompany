@@ -1,8 +1,8 @@
-const PassengerPlane = require('./Planes/PassengerPlane');
-const MilitaryPlane = require('./Planes/MilitaryPlane');
-const ExperimentalPlane = require('./Planes/experimentalPlane');
+const PassengerPlane = require('../Planes/PassengerPlane');
+const MilitaryPlane = require('../Planes/MilitaryPlane');
+const ExperimentalPlane = require('../Planes/experimentalPlane');
 
-const MILITARY_TYPES = require('./models/militaryTypes');
+const MILITARY_TYPES = require('../models/militaryTypes');
 
 class Airport {
     constructor(planes) {
@@ -21,6 +21,7 @@ class Airport {
     
     getTransportMilitaryPlanes = () => this.getMilitaryPlanesByType(MILITARY_TYPES.TRANSPORT);
     getBomberMilitaryPlanes = () => this.getMilitaryPlanesByType(MILITARY_TYPES.BOMBER);
+    getFighterMilitaryPlanes = () => this.getMilitaryPlanesByType(MILITARY_TYPES.FIGHTER);
 
     getPassengerPlaneWithMaxPassengersCapacity() {
         return this.getPassengerPlanes().reduce((prev, cur) => 
@@ -28,7 +29,7 @@ class Airport {
         );
     }
 
-    sortByMaxDistance() {
+    sortByMaxFlightDistance() {
         this.getPlanes().sort((a, b) => a.maxFlightDistance - b.maxFlightDistance);
 
         return this;

@@ -7,7 +7,7 @@ const MilitaryPlane = require('../Planes/MilitaryPlane');
 const PassengerPlane = require('../Planes/PassengerPlane');
 const ExperimentalPlane = require('../Planes/experimentalPlane');
 
-const Airport = require('../Airport');
+const Airport = require('../airport/Airport');
 
 const MILITARY_TYPES = require('../models/militaryTypes');
 const EXPERIMENTAL_TYPES = require('../models/ExperimentalTypes');
@@ -54,11 +54,33 @@ describe('Airport test.', () => {
         planeWithMaxPassengerCapacity
     ];
 
+    const dataForSorts = [
+        {
+          methodName: "sortByMaxFlightDistance",
+          sortField: "maxFlightDistance"
+        },
+        {
+          methodName: "sortByMaxLoadCapacity",
+          sortField: "maxLoadCapacity"
+        },
+        {
+          methodName: "sortByMaxSpeed",
+          sortField: "maxSpeed"
+        }
+    ];
+
     it('Should have military Planes with transport type', () => {
         const airport = new Airport(planes);
         const filteredPlanes = airport.getTransportMilitaryPlanes();
 
         expect(filteredPlanes).to.have.members(militaryTransportPlanes);
+    });
+
+    it('Should have military Planes with fighter type', () => {
+        const airport = new Airport(planes);
+        const filteredPlanes = airport.getFighterMilitaryPlanes();
+
+        expect(filteredPlanes).to.have.members(militaryFighterPlanes);
     });
 
     it('Should have passenger plane with max capacity', () => {
@@ -68,17 +90,19 @@ describe('Airport test.', () => {
         assert.deepEqual(expectedPlaneWithMaxPassengersCapacity, planeWithMaxPassengerCapacity);
     });
 
-    it('Should sort planes by max load capacity', () => {
-        const airport = new Airport(planes);
-        
-        expect(airport.sortByMaxLoadCapacity().getPlanes()).to.be.ascendingBy("maxLoadCapacity");
-    })
+    dataForSorts.forEach(({methodName, sortField}) => {
+        it(`Should sort planes by ${sortField}.`, () => {
+          const airport = new Airport(planes);
+
+          expect(airport[methodName]().planes).to.be.ascendingBy(sortField);
+        })
+    });
 
     it('Should check that at least one bomber is present in military planes.', () => {
         const airport = new Airport(planes);
        
         expect(airport.getBomberMilitaryPlanes()).to.have.members(militaryBomberPlanes);
-    })
+    });
 
     it('should check that experimental planes has classification level higher than unclassified', () => {
         const airport = new Airport(planes);
